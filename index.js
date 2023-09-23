@@ -1,26 +1,26 @@
-const express = require("express");
-const app= express();
+const express = require('express');
+const app = express();
 
 require("dotenv").config();
+const PORT = process.env.PORT || 3000;
 
-const PORT = process.env.PORT || 9000
- 
-// const DATABASE_URL = process.env.DATABASE_URL;
-
+// middleware 
 app.use(express.json());
 
-const blog = require("./routes/blog");
+const blog = require('./routes/blog');
 
-//mount
-app.use("/api/version1" , blog);
+// mount 
+app.use("/api/v1",blog);
 
-const connectDB = require("./config/database" )
-connectDB();
+const dbConnect = require('./config/database');
+dbConnect();
 
-app.listen(PORT , ()=>{
-   console.log(`the server in connected to the port ${PORT}`)
+// Start Server 
+app.listen(PORT,()=>{
+    console.log("App is Running at the",PORT);
 })
 
-app.get("/" , (req,res)=>{
-    res.send(`<h1>koi to mil hi jaegi</h1>`)
+// Default Route 
+app.get('/', (req,res) => {
+    res.send(`<h1>HomePage</h1>`)
 })
